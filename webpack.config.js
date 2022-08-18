@@ -1,5 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'production',
@@ -9,7 +10,8 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'Output Management'
-        })
+        }),
+        new CleanWebpackPlugin
     ],
     output: {
         path: path.resolve(__dirname,'dist'),
@@ -22,6 +24,11 @@ module.exports = {
         static: {
             directory: path.join(__dirname, 'dist')
         }
+    },
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
     },
     module: { 
         rules: [
