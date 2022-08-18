@@ -11,30 +11,33 @@ const state = {
 
 const validation = (element) => {
 
-    const validate = (input) => {
-        let schema = string().matches(/.rss$/).url().nullable();
-        schema.isValid(input).then((cb) => state.rssForm.isValid = cb); 
-    }
-
-    validate(element.value);
-    console.log(state.rssForm.isValid);
-
-    const formIsValid = (element) => {
+   const formIsValid = (element) => {
         if(!state.rssForm.isValid) {
             element.classList.add('invalid');
         } else {
           element.classList.remove('invalid');
         }
     }
-    formIsValid(element);
+
+    const validate = (input) => {
+        let schema = string().matches(/.rss$/).url().nullable();
+        schema.isValid(input)
+            .then((cb) => state.rssForm.isValid = cb)
+            .then(() => console.log(state.rssForm.isValid))
+            .then(() => formIsValid(element)); 
+    }
+
+    validate(element.value);
+    
 }
 
 const form = document.createElement('form');
-const rssFormInput = document.querySelector('.rss-form_input');
-form.innerHTML = `<form class="rss-form"><input type="text" class="rss-form_input"><input class="rss-form_submit" type="submit" value="Save"></form>`;
+
+form.innerHTML = `<form class="rss-form"><input type="text" class="rss-form_input" name="input"><input class="rss-form_submit" type="submit" value="Save"></form>`;
 document.body.appendChild(form);
 
 const rssForm = document.querySelector('form');
+const rssFormInput = rssForm.elements.input;
 rssForm.addEventListener('submit', function(e){
     e.preventDefault();
     validation(rssFormInput);

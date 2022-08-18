@@ -19,6 +19,9 @@
   "homepage": "https://github.com/Ilya-Solo/frontend-project-lvl3#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^4.0.0",
+    "eslint": "^8.22.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
     "html-webpack-plugin": "^5.5.0",
     "webpack": "^5.74.0",
     "webpack-cli": "^4.10.0",
