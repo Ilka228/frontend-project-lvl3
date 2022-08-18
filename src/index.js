@@ -9,18 +9,18 @@ const state = {
 };
 
 const validation = (element) => {
-  const formIsValid = (element) => {
+  const formIsValid = (el) => {
     if (!state.rssForm.isValid) {
-      element.classList.add('invalid');
+      el.classList.add('invalid');
     } else {
-      element.classList.remove('invalid');
+      el.classList.remove('invalid');
     }
   };
 
   const validate = (input) => {
     const schema = string().matches(/.rss$/).url().nullable();
     schema.isValid(input)
-      .then((cb) => state.rssForm.isValid = cb)
+      .then((cb) => { state.rssForm.isValid = cb; })
       .then(() => console.log(state.rssForm.isValid))
       .then(() => formIsValid(element));
   };
