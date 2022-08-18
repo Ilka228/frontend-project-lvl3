@@ -3,3 +3,6 @@ body {
     align-items: flex-start;
     justify-content: center;
 }
+.invalid {
+    border-color: red;
+}

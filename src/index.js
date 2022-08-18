@@ -9,6 +9,7 @@ const state = {
 };
 
 const validation = (element) => {
+  
   const formIsValid = (el) => {
     if (!state.rssForm.isValid) {
       el.classList.add('invalid');
@@ -30,7 +31,7 @@ const validation = (element) => {
 
 const form = document.createElement('form');
 
-form.innerHTML = '<form class="rss-form"><input type="text" class="rss-form_input" name="input"><input class="rss-form_submit" type="submit" value="Save"></form>';
+form.innerHTML = '<form class="rss-form"><input type="text" class="rss-form_input" name="input"><input class="rss-form_submit" type="submit" value="Save"></form><div><p class="rss-form__error"></p></div>';
 document.body.appendChild(form);
 
 const rssForm = document.querySelector('form');
