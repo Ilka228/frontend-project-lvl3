@@ -1,8 +1,63 @@
 body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    height: 30vh;
+    width: 100vw;
+    background-color: #212529;
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
 }
-.invalid {
-    border-color: red;
+
+form {
+    width: 70vw;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+}
+
+.rss-form_input {
+    min-width: 80%;
+    margin-right: 2%;
+    padding-left: 1%;
+    border-radius: 5px;
+    border: 0;
+    font-size: 20px;
+    outline: none;
+}
+
+
+.rss-form_input:focus {
+    outline: solid 4px #346efd;
+}
+
+.invalid , 
+.invalid:focus {
+    outline: solid 4px red;
+}
+
+.rss-form_submit {
+    min-width: 150px;
+    height: 60px;
+    border-radius: 5px;
+    font-size: 25px;
+    border: 0;
+    background-color: #346efd;
+    color: white;
+}
+.rss-form_submit:hover {
+    background-color: #225ae6;
+}
+
+small {
+    color: gray;
+    font-size: 20px;
 }
