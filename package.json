@@ -6,6 +6,7 @@
   "scripts": {
     "build": "webpack --config webpack.config.js"
   },
+ 
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Ilya-Solo/frontend-project-lvl3.git"
