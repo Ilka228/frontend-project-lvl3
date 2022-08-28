@@ -89,6 +89,14 @@ main.innerHTML = `
         <p></p>
       </wrapper>
     </section>
+    <section>
+      <div class="posts">
+
+      </div>
+      <div class="feeds">
+
+      </div>
+    </section>
   
 `
 document.body.appendChild(main);
@@ -146,6 +154,30 @@ const rssFormInput = rssForm.elements.input;
     console.log(state.elements);
     console.log(state.streams);
 }
+
+const render = () => {
+  const rssPosts =  state.elements.reduceRight((posts, post) => 
+    posts + 
+      `
+      <li>
+        <a href=${post.link}>${post.title}</a>
+        <button> ghbdtn</button>
+      </li>
+      `
+  , '');
+  const postsContent = `<ul>${rssPosts}</ul>`;
+  document.querySelector('.posts').innerHTML = postsContent;
+
+  const rssFeeds = state.streams.reduce((streams, stream) => 
+  streams + 
+    `
+    <li>
+      <a href=${stream.link}>${stream.title}</a>
+      <button> ghbdtn</button>
+    </li>
+    `
+, '');
+}
 // const url = 'https://ru.hexlet.io/lessons.rss';
 
 //   fetch(`https://allorigins.hexlet.app/get?disableCache=true&url=${encodeURIComponent(url)}`)
@@ -167,7 +199,8 @@ const query = (url) => {
     if (response.ok) return response.json();
     throw new Error('Network response was not ok.');
   })
-  .then(data => parse(data.contents, url));
+  .then(data => parse(data.contents, url))
+  .then(() => render());
 }
 // console.log(rssForm.elements.input.value);
 // query(rssFormInput);
@@ -175,9 +208,7 @@ const query = (url) => {
   rssForm.addEventListener('submit', (e) => {
     e.preventDefault();
     validation(rssFormInput);
-    if(!state.rssForm.isValid) return;
-    else{ 
-      query(rssFormInput.value);
-    }
-    
+    query(rssFormInput.value);
+     
   });
+  
