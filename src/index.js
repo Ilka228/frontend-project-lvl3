@@ -74,7 +74,25 @@ const validation = (element) => {
 
 const main = document.createElement('main');
 main.innerHTML = `
- 
+
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <h6 class="modal-description"></h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary modal-link">Читать Полностью</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <section class="rss-section">
       <div class="wrapper">
         <h1>RSS агрегатор</h1>
@@ -89,12 +107,14 @@ main.innerHTML = `
         <p></p>
       </wrapper>
     </section>
-    <section>
-      <div class="posts">
+    <section class="rss-posts">
+      <div class='content-wrapper'>
+        <div class="rss-posts_content_posts">
 
-      </div>
-      <div class="feeds">
+        </div>
+        <div class="rss-posts_content_feeds">
 
+        </div>
       </div>
     </section>
   
@@ -159,24 +179,26 @@ const render = () => {
   const rssPosts =  state.elements.reduceRight((posts, post) => 
     posts + 
       `
-      <li>
-        <a href=${post.link}>${post.title}</a>
-        <button> ghbdtn</button>
+      <li class="post">
+        <a href=${post.link} target="_blank">${post.title}</a>
+        <button type="button" class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modal" data-bs-title='${post.title}' data-bs-description='${post.description}' data-bs-link='${post.link}'>Просмотр</button>
       </li>
       `
   , '');
-  const postsContent = `<ul>${rssPosts}</ul>`;
-  document.querySelector('.posts').innerHTML = postsContent;
+  const postsContent = `<h2>Посты</h2><ul class="posts">${rssPosts}</ul>`;
+  document.querySelector('.rss-posts_content_posts').innerHTML = postsContent;
 
-  const rssFeeds = state.streams.reduce((streams, stream) => 
+  const rssFeeds = state.streams.reduceRight((streams, stream) => 
   streams + 
     `
-    <li>
-      <a href=${stream.link}>${stream.title}</a>
-      <button> ghbdtn</button>
+    <li class="feed">
+      <p class="feed_title">${stream.title}</p>
+      <p class="feed_description">${stream.description}</p>
     </li>
     `
-, '');
+  , '');
+  const contentFeeds = `<h2>Фиды</h2><ul class="feeds">${rssFeeds}<ul>`;
+  document.querySelector('.rss-posts_content_feeds').innerHTML = contentFeeds;
 }
 // const url = 'https://ru.hexlet.io/lessons.rss';
 
@@ -212,3 +234,20 @@ const query = (url) => {
      
   });
   
+  const modal = document.getElementById('modal')
+modal.addEventListener('show.bs.modal', function (event) {
+  
+  var button = event.relatedTarget;
+  
+  const title = button.getAttribute('data-bs-title');
+  const description = button.getAttribute('data-bs-description');
+  const link = button.getAttribute('data-bs-link');
+  
+  const modalTitle = modal.querySelector('.modal-title');
+  const modalBody = modal.querySelector('.modal-description');
+  const modalLink = modal.querySelector('.modal-link')
+
+  modalTitle.textContent = title;
+  modalBody.innerHTML = description;
+  modalLink.setAttribute('onclick',`window.open('${link}', '_blank');`);
+})

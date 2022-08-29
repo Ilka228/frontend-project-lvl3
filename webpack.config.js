@@ -9,7 +9,8 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'RSS agregator'
+            title: 'RSS agregator',
+            template: 'index.html'
         }),
         new CleanWebpackPlugin
     ],
